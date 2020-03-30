@@ -23,6 +23,7 @@ public class DataHelper {
         for (String message: messages) {
             try {
                 dog = new Gson().fromJson(message, Dog.class);
+                System.out.printf("Строка десериализована: %s%n", message);
             } catch (JsonSyntaxException e) {
                 System.out.printf("Строка не десериализована: %s%n", message);
             }
