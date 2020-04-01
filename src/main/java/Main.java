@@ -1,8 +1,8 @@
 import Helpers.DataHelper;
-import Helpers.KafkaHelper;
+import Helpers.KafkaOperations;
 import entity.Dog;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Производится запись данных в Kafka с ключем,
@@ -16,12 +16,12 @@ public class Main {
     public static void main(String[] args) {
         String key = DataHelper.newRqId();
         //генерация данных с ключем
-        KafkaHelper.produce(key);
+        KafkaOperations.produce(key);
         //получение данных по ключу в коллекцию
-        ArrayList<String> messages = KafkaHelper.getMessages(key);
+        List<String> messages = KafkaOperations.getMessages(key);
         System.out.println(messages);
-        //десериализация json
-        Dog dog = DataHelper.getDogFromJson(messages);
+        //получение из всех сообщений объекта Dog
+        Dog dog = DataHelper.getDogFromAllMessages(messages);
         //работа с объектом
         dog.showAnimal();
     }
