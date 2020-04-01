@@ -1,6 +1,6 @@
 package entity;
 
-public class Dog extends Animals{
+public class Dog extends Animal {
     private int weight;
     public Dog(String name, int weight){
         this.name = name;

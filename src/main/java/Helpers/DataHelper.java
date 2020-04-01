@@ -20,14 +20,8 @@ public class DataHelper {
      */
     public static Dog getDogFromJson(ArrayList<String> messages) {
         Dog dog = null;
-        for (String message: messages) {
-            try {
-                dog = new Gson().fromJson(message, Dog.class);
-                System.out.printf("Строка десериализована: %s%n", message);
-            } catch (JsonSyntaxException e) {
-                System.out.printf("Строка не десериализована: %s%n", message);
-            }
-        }
+        for (String message: messages)
+            dog = (Dog) JsonHelper.getObject(message, Dog.class);
         return dog;
     }
 }

@@ -1,5 +1,7 @@
 package Helpers;
 
+import entity.Cat;
+import entity.Dog;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -28,11 +30,13 @@ public class KafkaHelper {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         Producer<String, String> producer = new KafkaProducer<>(props);
+        Cat john = new Cat("John", 5.3f);
+        Dog ben = new Dog("Ben", 12);
 
         producer.send(new ProducerRecord<>("my-topic", key,
-                JsonHelper.getJsonCat("John", 5.3f)));
+                JsonHelper.getJson(john)));
         producer.send(new ProducerRecord<>("my-topic", key,
-                JsonHelper.getJsonDog("Ben", 12)));
+                JsonHelper.getJson(ben)));
         producer.close();
     }
 

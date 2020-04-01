@@ -1,27 +1,30 @@
 package Helpers;
 
 import com.google.gson.Gson;
-import entity.Cat;
-import entity.Dog;
+import com.google.gson.JsonSyntaxException;
+import entity.Animal;
 
-public class JsonHelper {
+public class JsonHelper<T extends Animal> {
+
+    private static Gson gson = new Gson();
+
     /**
      * Сериализация объекта Cat в Json.
-     * @param name имя кошки
-     * @param weight в формате Float
+     * @param object сериализуемый объект
      * @return json-строка с объектом
      */
-    public static String getJsonCat(String name, float weight) {
-        return new Gson().toJson(new Cat(name, weight));
+    public static String getJson(Animal object) {
+        return gson.toJson(object);
     }
 
-    /**
-     * Сериализация объекта Dog в Json.
-     * @param name имя собаки
-     * @param weight вес в формате int
-     * @return json-строка с объектом
-     */
-    public static String getJsonDog(String name, int weight) {
-        return new Gson().toJson(new Dog(name, weight));
+    public static Animal getObject(String s, Class objClass) {
+        Animal animal = null;
+        try {
+            animal = (Animal) gson.fromJson(s, objClass);
+            System.out.printf("Строка десериализована: %s%n", s);
+        } catch (JsonSyntaxException e) {
+            System.out.printf("Строка не десериализована: %s%n", s);
+        }
+        return animal;
     }
 }
